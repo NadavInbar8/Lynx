@@ -1,7 +1,8 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { Switch } from 'react-router-dom';
-import { Homepage } from './pages/Homepage';
+import './assets/styles/main.scss';
+import { Homepage } from './pages/Homepage/Homepage';
 import Picture from './pages/Picture/Picture';
 
 export function RootCmp() {

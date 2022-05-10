@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Switch } from 'react-router-dom';
 import { Route } from 'react-router-dom';
-import { picturesService } from '../services/picture.service';
-import Picture from './Picture/Picture.jsx';
+import { picturesService } from '../../services/picture.service';
+import './Homepage.scss';
 
 export const Homepage = () => {
   const [pictures, setPictures] = useState('');
@@ -42,17 +42,19 @@ export const Homepage = () => {
   return (
     <div className='homepage'>
       <h1>Boogle Photos!</h1>
-      {pictures.length > 0 ? (
-        pictures.map((picture) => (
-          <div key={picture.id}>
-            <Link to={`/${picture.id}`}>
-              <img src={picture.thumbnailUrl} alt='thumbnail' />
-            </Link>
-          </div>
-        ))
-      ) : (
-        <div>no pics yet</div>
-      )}
+      <div className='gallery flex'>
+        {pictures.length > 0 ? (
+          pictures.map((picture) => (
+            <div key={picture.id}>
+              <Link to={`/${picture.id}`}>
+                <img src={picture.thumbnailUrl} alt='thumbnail' />
+              </Link>
+            </div>
+          ))
+        ) : (
+          <div>no pics yet</div>
+        )}
+      </div>
     </div>
   );
 };

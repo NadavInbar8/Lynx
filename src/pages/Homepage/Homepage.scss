@@ -1,0 +1,14 @@
+.homepage {
+  width: 100%;
+  max-width: 99vw;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .gallery {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+}
