@@ -8,6 +8,13 @@ const getPictures = async () => {
   return pictures;
 };
 
+const getById = async (photoId) => {
+  const photo = await axios.get(
+    `https://jsonplaceholder.typicode.com/photos/${photoId}`
+  );
+  return photo;
+};
+
 const putTitle = (picObj) => {
   fetch('https://jsonplaceholder.typicode.com/photos/1', {
     method: 'PUT',
@@ -30,6 +37,7 @@ const uploadPic = (picObj) => {
   })
     .then((response) => response.json())
     .then((json) => console.log(json));
+  return picObj;
 };
 
 const deletePic = (picId) => {
@@ -43,4 +51,5 @@ export const picturesService = {
   putTitle,
   uploadPic,
   deletePic,
+  getById,
 };

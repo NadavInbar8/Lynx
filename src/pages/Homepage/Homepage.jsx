@@ -1,14 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Switch } from 'react-router-dom';
-import { Route } from 'react-router-dom';
 import { picturesService } from '../../services/picture.service';
 import './Homepage.scss';
 
 export const Homepage = () => {
   const [pictures, setPictures] = useState('');
-  const [title, setTitle] = useState('');
-  const [inPic, setInPic] = useState(false);
 
   useEffect(() => {
     getData();
