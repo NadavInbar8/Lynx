@@ -3,12 +3,16 @@ import ReactDOM from 'react-dom';
 import { RootCmp } from './RootCmp';
 import './assets/styles/main.scss';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './store/store';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <RootCmp />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <RootCmp />
+      </Router>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

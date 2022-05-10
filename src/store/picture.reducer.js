@@ -1,11 +1,11 @@
-import { userService } from '../services/user.service';
+import { picturesService } from '../services/picture.service';
 
 const initialState = {
-  photos: photoService.getPictures() || [],
+  photos: [],
   photo: {},
 };
 
-export function userReducer(state = initialState, action) {
+export function pictureReducer(state = initialState, action) {
   let newState = state;
   switch (action.type) {
     case 'SET_PHOTOS':
