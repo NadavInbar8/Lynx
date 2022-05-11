@@ -1,6 +1,4 @@
-import { picturesService } from '../services/picture.service';
-
-const initialState = {
+export const initialState = {
   photos: [],
   photo: {},
 };
@@ -15,7 +13,15 @@ export function pictureReducer(state = initialState, action) {
       newState = { ...state, photo: action.currPhoto };
       break;
     case 'UPDATE_PHOTO':
-      newState = { ...state, photo: action.photo };
+      newState = {
+        ...state,
+        photos: state.photos.map((picture) => {
+          return picture.id === action.savedPhoto.id
+            ? action.savedPhoto
+            : picture;
+        }),
+        photo: action.savedPhoto,
+      };
       break;
     case 'POST_PHOTO':
       newState = { ...state, photos: [...state.photos, action.savedPhoto] };

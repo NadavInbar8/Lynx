@@ -11,10 +11,10 @@ export const loadPhotos = () => {
   };
 };
 
-export const loadPhoto = (photoId) => {
+export const loadPhoto = (photo) => {
   return async (dispatch) => {
     try {
-      let currPhoto = await picturesService.getById(photoId);
+      let currPhoto = photo;
       dispatch({ type: 'SET_PHOTO', currPhoto });
     } catch (err) {
       console.log('couldnt load photo:', err);
@@ -25,8 +25,8 @@ export const loadPhoto = (photoId) => {
 export const updatePhoto = (photo) => {
   return async (dispatch) => {
     try {
-      picturesService.putTitle(photo);
-      const action = { type: 'UPDATE_PHOTO', photo };
+      const savedPhoto = picturesService.putTitle(photo);
+      const action = { type: 'UPDATE_PHOTO', savedPhoto };
       dispatch(action);
     } catch (err) {
       console.log('couldnt put photo:', err);
@@ -51,6 +51,7 @@ export const deletePhoto = (photoId) => {
     try {
       picturesService.deletePic(photoId);
       dispatch({ type: 'DELETE_PHOTO', photoId });
+      console.log('deleted succsessfuly');
     } catch (err) {
       console.log('couldnt delete photo:', err);
     }

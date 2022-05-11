@@ -1,18 +1,10 @@
 import axios from 'axios';
-import { httpService } from './http.service';
 
 const getPictures = async () => {
   const pictures = await axios
     .get('https://jsonplaceholder.typicode.com/photos')
     .then((res) => res.data.splice(0, 100));
   return pictures;
-};
-
-const getById = async (photoId) => {
-  const photo = await axios.get(
-    `https://jsonplaceholder.typicode.com/photos/${photoId}`
-  );
-  return photo;
 };
 
 const putTitle = (picObj) => {
@@ -25,6 +17,7 @@ const putTitle = (picObj) => {
   })
     .then((response) => response.json())
     .then((json) => console.log(json));
+  return picObj;
 };
 
 const uploadPic = (picObj) => {
@@ -51,5 +44,4 @@ export const picturesService = {
   putTitle,
   uploadPic,
   deletePic,
-  getById,
 };

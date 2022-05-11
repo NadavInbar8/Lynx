@@ -2,14 +2,59 @@
   width: 100%;
   max-width: 99vw;
   height: 100%;
-
+  max-height: 99vh;
+  overflow-y: none;
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 0;
+
+  .header {
+    align-items: center;
+    color: white;
+    font-size: 26px;
+    cursor: alias;
+  }
+
+  .new-photo {
+    border: 2px solid white;
+    color: whitesmoke;
+    font-size: 20px;
+    padding: 8px;
+    margin: 12px;
+    border-radius: 4px;
+    text-decoration: none;
+  }
+  a:link {
+    text-decoration: none;
+  }
+
+  a:visited {
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  a:active {
+    text-decoration: none;
+  }
 
   .gallery {
     flex-wrap: wrap;
     justify-content: center;
     width: 80vw;
+    height: 100%;
+    overflow-y: auto;
+  }
+  .gallery-pic {
+    max-width: 150px;
+    max-height: 150px;
+    margin: 2px;
+    border-radius: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.657);
+    // height: 150px;
+    // width: 150px;
   }
 }

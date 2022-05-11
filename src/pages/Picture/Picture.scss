@@ -1,0 +1,70 @@
+.picture {
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  .content {
+    position: absolute;
+    left: 50vw;
+    top: 50vh;
+    transform: translate(-50%, -50%);
+    max-height: 80vh;
+    max-width: 80vw;
+    height: fit-content;
+    width: fit-content;
+
+    background-color: white;
+    border-radius: 5px;
+    padding: 16px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .photo {
+      max-height: 600px;
+      max-width: fit-content;
+      position: relative;
+    }
+    .picture-title {
+      position: absolute;
+      top: 5%;
+      left: 5%;
+      height: 30px;
+      font-size: 20px;
+
+      background-color: rgba(255, 255, 255, 0.5);
+      // padding: 0 12px;
+      outline: none;
+      border: none;
+      padding-bottom: 4px;
+      border-radius: 3px;
+      min-width: 50px;
+    }
+    .delete-btn {
+      position: absolute;
+      top: 5%;
+      right: 5%;
+      height: 30px;
+      width: 30px;
+      cursor: pointer;
+      img {
+        height: 30px;
+        width: 30px;
+      }
+    }
+  }
+}
+
+.cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  // backdrop-filter: blur(3px);
+  z-index: 2;
+  cursor: pointer;
+}

@@ -1,55 +1,65 @@
 import { useEffect, useState } from 'react';
-import { picturesService } from '../../services/picture.service';
-import { useParams } from 'react-router-dom';
 import './Picture.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { deletePhoto, updatePhoto } from '../../store/picture.action';
+import { useNavigate } from 'react-router-dom';
+import trash from '../../assets/trash.svg';
 
-const Picture = ({ picture }) => {
-  const [currPic, setCurrPic] = useState({ ...picture });
-  const [title, setTitle] = useState('');
-  const params = useParams();
+const Picture = () => {
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
+
+  const { photo } = useSelector((state) => ({
+    photo: state.pictureModule.photo,
+  }));
+
+  const [title, setTitle] = useState(photo.title);
+  const [width, setWidth] = useState('');
 
   useEffect(() => {
-    // console.log('in useEffect');
-    console.log('currPic', currPic);
-    // try {
-    //   picturesService.putTitle(currPic);
-    // } catch (err) {
-    //   console.log('couldnt put: ', err);
-    // }
-  }, [currPic]);
-
-  useEffect(() => {
-    getPicture();
-  }, []);
-
-  const getPicture = async () => {
-    const temp = await picturesService.getPictures();
-    const tempPic = temp.filter((pict) => pict.id == params.id);
-    setCurrPic(tempPic[0]);
-  };
+    console.log('photo has changed', photo);
+  }, [photo]);
 
   const handleChange = ({ target }) => {
     const value = target.value;
+    setWidth(value.length + 'ch');
     setTitle(value);
   };
 
   const putData = async (newTitle) => {
-    setCurrPic({ ...currPic, title: newTitle });
-    setTitle('');
+    dispatch(updatePhoto({ ...photo, title: newTitle }));
+  };
+
+  const removePhoto = async (photoId) => {
+    dispatch(deletePhoto(photoId));
+    navigate('/', { replace: true });
+  };
+  const goBack = () => {
+    navigate('/', { replace: true });
   };
 
   return (
-    <div>
-      <h1>hello</h1>
-      <h1>{currPic.title}</h1>
-      <input
-        type='text'
-        placeholder={currPic.title}
-        onChange={handleChange}
-        onBlur={() => putData(title)}
-      />
-      <img src={currPic.url} alt='pic' />
-    </div>
+    <>
+      <div className='picture'>
+        <div className='content'>
+          <img src={photo.url} alt='pic' className='photo' />
+          <input
+            className='picture-title'
+            style={{ width }}
+            onBlur={() => putData(title)}
+            onChange={handleChange}
+            name='title'
+            title={title}
+            value={title}
+            type='text'
+          />
+          <div className='delete-btn' onClick={() => removePhoto(photo.id)}>
+            <img src={trash} alt='delete' />
+          </div>
+        </div>
+        <div className='cover' onClick={goBack}></div>
+      </div>
+    </>
   );
 };
 

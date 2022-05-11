@@ -1,65 +1,56 @@
-import { useEffect, useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { picturesService } from '../../services/picture.service';
-import { loadPhotos } from '../../store/picture.action';
+import NewPicture from '../../components/NewPicture';
+import { loadPhoto } from '../../store/picture.action';
+import Picture from '../Picture/Picture';
+import { FcStackOfPhotos } from 'react-icons/fc';
 import './Homepage.scss';
 
 export const Homepage = () => {
-  // const [pictures, setPictures] = useState('');
   const dispatch = useDispatch();
 
-  const { photos } = useSelector(
-    (state) => ({
-      photos: state.pictureModule.photos,
-    }),
-    shallowEqual
-  );
+  const { photos } = useSelector((state) => ({
+    photos: state.pictureModule.photos,
+  }));
 
   useEffect(() => {
-    dispatch(loadPhotos());
-  }, []);
-
-  useEffect(() => {
-    console.log('picture changed: ', photos);
+    console.log('photos', photos);
   }, [photos]);
-
-  // const getData = async () => {
-  //   try {
-  //     const data = await picturesService.getPictures();
-  //     // setPictures(data);
-  //   } catch (err) {
-  //     console.log('cant get photos: ', err);
-  //   }
-  // };
-
-  // const putData = async (pic, title) => {
-  //   console.log('pic before: ', pic);
-  //   pic.title = title;
-  //   console.log('pic after: ', pic);
-
-  //   try {
-  //     picturesService.putTitle(pic);
-  //   } catch (err) {
-  //     console.log('couldnt put: ', err);
-  //   }
-  // };
 
   return (
     <div className='homepage'>
-      <h1>Boogle Photos!</h1>
+      <div className='header flex'>
+        <FcStackOfPhotos size={100} />
+        <h1>Boogle Photos!</h1>
+      </div>
+      <Link to={`/newPicture`}>
+        <div className='new-photo'>New photo</div>
+      </Link>
       <div className='gallery flex'>
         {photos.length > 0 ? (
           photos.map((picture) => (
-            <div key={picture.id}>
+            <div key={picture.thumbnailUrl}>
               <Link to={`/${picture.id}`}>
-                <img src={picture.thumbnailUrl} alt='thumbnail' />
+                <img
+                  className='gallery-pic'
+                  src={picture.thumbnailUrl}
+                  alt='thumbnail'
+                  onClick={() => {
+                    dispatch(loadPhoto(picture));
+                  }}
+                />
               </Link>
             </div>
           ))
         ) : (
           <div>no pics yet</div>
         )}
+        <Routes>
+          <Route path='/newPicture' element={<NewPicture />} />
+          <Route path='/:photoId' element={<Picture />} />
+        </Routes>
       </div>
     </div>
   );
