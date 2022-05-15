@@ -29,6 +29,7 @@ const NewPicture = () => {
 
   const addPic = () => {
     dispatch(addPhoto(newPic));
+    goBack();
   };
   return (
     <>
